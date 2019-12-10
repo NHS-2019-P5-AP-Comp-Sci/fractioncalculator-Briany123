@@ -8,193 +8,241 @@ import java.util.*;
 
 public class FracCalc {
 
-	public static void main(String[] args) {
-		// TODO: Read the input from the user and call produceAnswer with an equation
-		boolean jump = false;
-		while (!jump) {
-			Scanner userInput = new Scanner(System.in);
-			System.out.println("please enter your math equation");
-			String input = userInput.nextLine();
-			
-			System.out.println(produceAnswer(input));
-
-			if (input.indexOf("quit") != -1) {
-				jump = true;
-				userInput.close();
-
-		}
-		
-		}
-	}
-
-	public static String produceAnswer(String input) {
-		int spacePos = input.indexOf(" ");
-		String num1 = input.substring(0, spacePos);
-		String num2 = input.substring(spacePos + 2, input.length());
-		String dividing=input.substring(spacePos, spacePos+2);
-		String operator = input.substring(spacePos, spacePos + 2);
-		String whole2 = "";
-		String numerator2 = "";
-		String denominator2 = "";
-		String whole1 = "";
-		String numerator1 = "";
-		String denominator1 = "";
-		double answer = 0;
-		double new_numerator2=0;
-		double new_numerator1 = 0;
-		double finalnumerator1=0;
-		double finalnumerator2=0;
-		String ans1="";
-		double new_deminator=0;
-		String op="";
-		int wnum =0;
-
-		int underscorePos = num2.indexOf("_");
-		int dividePos = num2.indexOf("/");
-		// both friction and whole number
-		if (underscorePos > -1 && dividePos > -1) {
-			whole2 = num2.substring(0, underscorePos);
-			numerator2 = num2.substring(underscorePos + 1, dividePos);
-			denominator2 = num2.substring(dividePos + 1, num2.length());
-		}
-		// only friction
-		if (underscorePos == -1 && dividePos > -1) {
-			whole2 = "0";
-			numerator2 = num2.substring(dividePos - 1, dividePos);
-			denominator2 = num2.substring(dividePos + 1, num2.length());
-		}
-		// only whole number
-		if (underscorePos <= -1 && dividePos <= -1) {
-			whole2 = num2.substring(0, num2.length());
-			numerator2 = "0";
-			denominator2 = "1";
-		}
-		// part 1
-		int underscorePos1 = num1.indexOf("_");
-		int dividePos1 = num1.indexOf("/");
-		// both friction and whole number
-		if (underscorePos1 > -1 && dividePos1 > -1) {
-			whole1 = num2.substring(0, underscorePos);
-			numerator1 = num2.substring(underscorePos1 + 1, dividePos1);
-			denominator1 = num2.substring(dividePos1 + 1, num1.length());
-		}
-		// only friction
-		if (underscorePos1 == -1 && dividePos1 > -1) {
-			whole1 = "0";
-			numerator1 = num1.substring(dividePos1 - 1, dividePos1);
-			denominator1 = num1.substring(dividePos1 + 1, num1.length());
-		}
-		// only whole number
-		if (underscorePos1 <= -1 && dividePos1 <= -1) {
-			whole1 = num1.substring(0, num1.length());
-			numerator1 = "0";
-			denominator1 = "1";
-		}
-		double whole2_double = Double.parseDouble(whole2);
-		double numerator2_double = Double.parseDouble(numerator2);
-		double denominator2_double = Double.parseDouble(denominator2);
-		double whole1_double = Double.parseDouble(whole1);
-		double numerator1_double = Double.parseDouble(numerator1);
-		double denominator1_double = Double.parseDouble(denominator1);
-		// convert int number into double
-		// convert dividePos into Strin
-		 
-		
-		if (input.indexOf("+") !=-1) {
-			
-		    if (underscorePos1 ==-1 && dividePos1 ==-1 && underscorePos ==-1 && dividePos ==-1) {
-				
-				answer = whole2_double + whole1_double;
-				ans1= answer+"";
-			 }
-		    else {
-				 new_deminator = denominator2_double * denominator1_double;
-				
-				
-				finalnumerator1= numerator1_double*denominator2_double;
-			
-				finalnumerator2=denominator1_double*numerator2_double;
-				answer = finalnumerator1 + finalnumerator2;
-				ans1 = answer+"/"+new_deminator;
-				
-				
-			 }
-		}
-	     if (input.indexOf("-") !=-1) {
-			
-			if (underscorePos1 ==-1 && dividePos1 ==-1 && underscorePos ==-1 && dividePos ==-1) {
-				
-				if (whole2_double > whole1_double){
-					
-					answer = whole2_double - whole1_double;
-					ans1= "-" + answer+"";
-				}
-				else {
-				answer = whole1_double - whole2_double;
-				ans1="" + answer;
-					
-				}
-			}
-			else {
-				   new_deminator = denominator2_double * denominator1_double;
-					
-					
-					finalnumerator1= numerator1_double*denominator2_double;
-				
-					finalnumerator2=denominator1_double*numerator2_double;
-					answer = finalnumerator1 - finalnumerator2;
-					ans1 = answer+"/"+new_deminator;
-			}
-	     }
-	     
-		if (input.indexOf("*") !=-1) {	
-			if (underscorePos1 ==-1 && dividePos1 ==-1 && underscorePos ==-1 && dividePos ==-1) {
-				
-				answer = whole2_double * whole1_double;
-				ans1= answer+"";
-			 }
-		    else {
-				 new_deminator = denominator2_double * denominator1_double;
-				
-				
-				finalnumerator1= numerator1_double*numerator2_double;
-				answer = finalnumerator1;
-				ans1 = answer+"/"+new_deminator;
-			 }
-		}
-		//the / can always be found, change input
-		if (dividing.indexOf("/") !=-1) {
-			if (underscorePos1 ==-1 && dividePos1 ==-1 && underscorePos ==-1 && dividePos ==-1) {
-				
-				answer = whole2_double / whole1_double;
-				ans1= answer+"";
-			 }
-		    else {
-				 new_deminator = denominator2_double * numerator2_double;
-				
-				
-				finalnumerator1= numerator1_double*denominator1_double;
-				answer = finalnumerator1;
-				for(int i=0; i< new_deminator; i++)
-					if (i % answer==0){
-						wnum +=1; 
-						new_deminator -=answer;
-						
-					}
-				if (wnum!=0) {
-					ans1 = wnum+ "_"+new_deminator+"/"+answer;
-				}
-				else {
-				   ans1 = new_deminator+"/"+answer;	
-				}
-				
-			 }
-		}
-	    //return ans1;
-
-	
-	
-	
-		return ans1;
+public static void main(String[] args) {
+Scanner userInput = new Scanner(System.in);
+String in = userInput.nextLine();
+String str = produceAnswer(in);
+//getting the input 
+boolean chioce = false;
+while (!chioce) {
+String x = userInput.nextLine();
+str = produceAnswer(x);
+System.out.println(str);
+if (x.indexOf("quit") != -1) {
+	chioce = true;
+userInput.close();
 }
 }
+// TODO: Read the input from the user and call produceAnswer with an equation
+
+}
+
+// ** IMPORTANT ** DO NOT DELETE THIS FUNCTION. This function will be used to
+// test your code
+// This function takes a String 'input' and produces the result
+//
+// input is a fraction string that needs to be evaluated. For your program, this
+// will be the user input.
+// e.g. input ==> "1/2 + 3/4"
+//
+// The function should return the result of the fraction after it has been
+// calculated
+// e.g. return ==> "1_1/4"
+
+public static String produceAnswera(String input) {
+
+
+int space = input.indexOf(" ");
+String str = "";
+String dtr = "";
+if (Character.isWhitespace(input.charAt(space + 2))) {
+String operator = input.substring(space + 1, space + 2);
+str = (input.substring(space + 3));
+if (str.indexOf("/") != -1) {
+int frac = str.indexOf("/");
+// String operator = i.substring(space+1, space + 2);
+dtr = (input.substring(0, space));
+if (dtr.indexOf("_") != -1) {
+int dashx = dtr.indexOf("_");
+String wholeNumberx = dtr.substring(0, dashx);
+String numx = dtr.substring(dashx + 1, frac);
+String denomx = dtr.substring(frac + 1);
+double wholex = Double.parseDouble(wholeNumberx);
+double numeratorx = Double.parseDouble(numx);
+double denominatorx = Double.parseDouble(denomx);
+double firstFraction = (wholex * denominatorx + numeratorx) / denominatorx;
+if (str.indexOf("_") != -1) {
+int dash = str.indexOf("_");
+String wholeNumber = str.substring(0, dash);
+String num = str.substring(dash + 1, frac);
+String denom = str.substring(frac + 1);
+double whole = Double.parseDouble(wholeNumber);
+double numerator = Double.parseDouble(num);
+double denominator = Double.parseDouble(denom);
+double secondFraction = (whole * denominator + numerator) / denominator;
+
+
+
+}
+
+
+} 
+}
+
+// "1/2 + 3/4"
+
+// TODO: Implement this function to produce the solution to the input
+}
+return str;
+
+}
+
+public static String produceAnswer(String in) {
+
+String firstn;
+String secondn;
+String result;
+
+if (in.indexOf('*') != -1) {
+// if it is multiply
+firstn = in.substring(0, in.indexOf('*'));
+secondn = in.substring(in.indexOf('*') + 1);
+firstn = Frac2(firstn);
+secondn = Frac2(secondn);
+
+String firstNum = firstn.substring(0, firstn.indexOf('/'));
+String firstDenom = firstn.substring(firstn.indexOf('/') + 1);
+
+String secondNum = secondn.substring(0, secondn.indexOf('/'));
+String secondDenom = secondn.substring(secondn.indexOf('/') + 1);
+result = "" + Integer.parseInt(firstNum) * Integer.parseInt(secondNum) + '/'
++ Integer.parseInt(firstDenom) * Integer.parseInt(secondDenom);
+} else if (in.indexOf('+') != -1) {
+// if it is addition
+firstn = in.substring(0, in.indexOf('+'));
+secondn = in.substring(in.indexOf('+') + 1);
+firstn = Frac2(firstn);
+secondn = Frac2(secondn);
+String firstNum = firstn.substring(0, firstn.indexOf('/'));
+String firstDenom = firstn.substring(firstn.indexOf('/') + 1);
+
+String secondNum = secondn.substring(0, secondn.indexOf('/'));
+String secondDenom = secondn.substring(secondn.indexOf('/') + 1);
+result = ""
++ (Integer.parseInt(firstNum) * Integer.parseInt(secondDenom)
++ Integer.parseInt(secondNum) * Integer.parseInt(firstDenom))
++ '/' + Integer.parseInt(firstDenom) * Integer.parseInt(secondDenom);
+} else if (in.indexOf(" / ") != -1) {
+// purely division
+firstn = in.substring(0, in.indexOf(" / "));
+secondn = in.substring(in.indexOf(" / ") + 2);
+firstn = Frac2(firstn);
+secondn = Frac2(secondn);
+
+String firstNum = firstn.substring(0, firstn.indexOf('/'));
+String firstDenom = firstn.substring(firstn.indexOf('/') + 1);
+
+String secondNum = secondn.substring(0, secondn.indexOf('/'));
+String secondDenom = secondn.substring(secondn.indexOf('/') + 1);
+result = "" + Integer.parseInt(firstNum) * Integer.parseInt(secondDenom) + '/'
++ Integer.parseInt(firstDenom) * Integer.parseInt(secondNum);
+} else if (in.substring(1).indexOf('-') != -1) {
+// subtraction
+firstn = in.substring(0, in.substring(1).indexOf('-') + 1);
+secondn = in.substring(in.substring(1).indexOf('-') + 2);
+firstn = Frac2(firstn);
+secondn = Frac2(secondn);
+String firstNum = firstn.substring(0, firstn.indexOf('/'));
+String firstDenom = firstn.substring(firstn.indexOf('/') + 1);
+
+String secondNum = secondn.substring(0, secondn.indexOf('/'));
+String secondDenom = secondn.substring(secondn.indexOf('/') + 1);
+result = ""
++ (Integer.parseInt(firstNum) * Integer.parseInt(secondDenom)
+- Integer.parseInt(secondNum) * Integer.parseInt(firstDenom))
++ '/' + Integer.parseInt(firstDenom) * Integer.parseInt(secondDenom);
+} else {
+result = "null";
+}
+
+result = Frac1(result);
+return result;
+}
+
+public static String Frac2(String in) {
+in = in.replaceAll(" ", "");
+if (in.indexOf('/') == -1)
+return in + "/1";
+else if (in.indexOf('_') == -1)
+return in;
+else {
+boolean Negative = false;
+if (in.charAt(0) == '-') {
+Negative = true;
+in = in.substring(1);
+}
+int fst = in.indexOf('_');
+int scd = in.indexOf('/');
+int whole = Integer.parseInt(in.substring(0, fst));
+int num = Integer.parseInt(in.substring(fst + 1, scd));
+int dnm = Integer.parseInt(in.substring(scd + 1));
+String result = whole * dnm + num + "/" + dnm;
+if (Negative) {
+result = "-" + result;
+}
+return result;
+}
+}
+
+public static String simplify(String in) {
+int ind = in.indexOf('/');
+int num = Integer.parseInt(in.substring(0, ind));
+int dnm = Integer.parseInt(in.substring(ind + 1));
+for (int i = 2; i < dnm; i++) {
+if (num % i == 0 && dnm % i == 0) {
+num /= i;
+dnm /= i;
+i--;
+}
+
+}
+if(num==0 || dnm ==0) {
+	return 0+"";
+}
+else {
+	return num + "/" + dnm;
+}
+}
+public static String Frac1(String in) {
+// given it does not have '_'
+pp(in);
+if (in.indexOf('/') == -1)
+return in;
+else {
+in = simplify(in);
+int ind = in.indexOf('/');
+int num = Integer.parseInt(in.substring(0, ind));
+int dnm = Integer.parseInt(in.substring(ind + 1));
+
+boolean isNegative = false;
+
+if (num < dnm) {
+return in;
+} else if (num % dnm == 0) {
+return "" + num / dnm;
+} else {
+if (num < 0) {
+isNegative = !isNegative;
+num = 0 - num;
+}
+if (dnm < 0) {
+isNegative = !isNegative;
+dnm = 0 - dnm;
+}
+String result = num / dnm + "_" + num % dnm + "/" + dnm;
+if (isNegative)
+result = '-' + result;
+return result;
+}
+}
+}
+
+public static void pp(String a) {
+System.out.println(a);
+}
+
+// TODO: Fill in the space below with any helper methods that you think you will
+// need
+
+}
+
